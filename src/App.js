@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import './App.css';
 import axios from 'axios';
+import { Posts } from './components/Posts';
 function App() {
  const[posts,Setposts]=useState([]);
  const[loading,Setloading]=useState(true);
@@ -19,9 +20,16 @@ const FetchPosts=async()=>{
  FetchPosts();
 
  },[])
+
+
+ const indexofLastPost=currentpage*postsperpage;
+ const indexofFirstPost=indexofLastPost-postsperpage;
+ const currentposts=posts.slice(indexofFirstPost,indexofLastPost);
+
   return (
-    <div className="App">
-     
+    <div className='container mt-5'>
+     <h1 className="text-primary mb-5">My Blog</h1>
+     <Posts posts={currentposts} loading={loading}/>
     </div>
   );
 }
